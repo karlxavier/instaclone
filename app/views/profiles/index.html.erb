@@ -9,6 +9,13 @@
   <% @users.each do |user| %>
     <p>
       <%= link_to user.username, profile_path(user.username) %>
+      <% if user_signed_in? && current_user.id != user.id %>
+        <% if current_user.pending_requests.exists?(friend_id: user.id) %>
+          <i>requested</i>
+        <% elsif !current_user.friends.exists?( friendships: { friend_id: user.id } ) %>
+          (<%= link_to 'send friend request', friend_request_profile_path(user) %>)
+        <% end %>
+      <% end %>
     </p>
   <% end %>
 </div>

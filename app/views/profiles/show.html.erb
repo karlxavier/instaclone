@@ -16,4 +16,14 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <h3>Friends</h3>
+  <% @user.friends.each do |friend| %>
+    <%= link_to friend.username, profile_path(friend.username) %>
+  <% end %>
+
+  <h3>Pending Friend Requests</h3>
+  <% @user.pending_requests.each do |friend| %>
+    <%= link_to friend.username, profile_path(friend.username) %>
+  <% end %>
 </div>

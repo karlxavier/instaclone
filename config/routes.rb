@@ -5,7 +5,13 @@ Rails.application.routes.draw do
     get '/users', to: 'devise/registrations#new'
   end
 
-  resources :profiles, only: [:index]
+  resources :profiles, only: [:index] do
+    member do
+      get :request
+      get :accept
+      get :decline
+    end
+  end
   get 'profiles/:username', to: 'profiles#show', as: :profile
 
   resources :photos, only: [:index, :show, :new, :create, :destroy]
